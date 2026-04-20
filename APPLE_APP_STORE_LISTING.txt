@@ -1,0 +1,178 @@
+APPLE APP STORE LISTING
+=======================
+
+App Name: TrimFit — Smart Fitness Coach
+Subtitle: 205+ Exercises, Nutrition & Progress Tracking
+Promotional Text: New! Sign in with Google, Facebook, Apple, X, or phone number. Get started in seconds.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESCRIPTION (4000 char max)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TrimFit is your all-in-one smart fitness coach — designed to help you lose weight, build muscle, stay fit, and track every step of your fitness journey. Whether you're a complete beginner or a seasoned athlete, TrimFit adapts to your goals and provides personalized workout plans, nutrition guidance, and detailed progress tracking.
+
+SMART WORKOUT GENERATION
+Tell TrimFit your goals, fitness level, and available equipment, and it generates a personalized workout plan just for you. Choose from 20+ pre-built plans or create your own custom routines. No more guessing what to do at the gym.
+
+205+ PROFESSIONAL EXERCISES
+Browse our massive library of exercises across 7 categories: Abs, Back, Chest, Legs, Shoulders, Arms, and Cardio. Each exercise includes step-by-step instructions, target muscle details, difficulty levels, and video demonstrations to ensure perfect form.
+
+PERSONALIZED NUTRITION TRACKING
+Log your meals, track calories and macros, monitor water intake, and get smart meal plan recommendations tailored to your goals. Whether you want to lose weight, bulk up, or eat cleaner, TrimFit helps you stay on track with your nutrition.
+
+DETAILED PROGRESS ANALYTICS
+Track body measurements, log before & after photos, monitor workout streaks, and visualize your progress with beautiful charts and reports. Celebrate your achievements with our badge and milestone system.
+
+WORKOUT STREAKS & ACHIEVEMENTS
+Stay motivated with daily streak tracking, unlock achievement badges for hitting milestones, and compete in community fitness challenges. Your consistency is rewarded.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SUBSCRIPTION OPTIONS
+
+Start for FREE with basic features:
+
+FREE PLAN
+• 3 workout sessions per week
+• 5 preset workout plans
+• 50 basic exercises
+• Water intake tracking
+
+BASIC PLAN — $4.99/month or $39.99/year
+Includes: Unlimited workouts, 20+ plans, 205+ exercises, smart recommendations, body measurements, nutrition logging, achievements, weekly reports
+7-day free trial
+
+PRO PLAN — $9.99/month or $79.99/year
+Everything in Basic, plus: Smart meal plans, macro tracking, body analysis, photo comparison, custom workouts, video demos, monthly reports, data export, priority coaching
+14-day free trial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECURE & FAST SIGN-UP
+Get started in under 30 seconds. Sign up with:
+• Apple ID (Sign in with Apple)
+• Google account
+• Facebook account
+• X (Twitter) account
+• Email & password
+• Phone number with SMS verification
+
+Payment options: Credit/Debit Card, PayPal, Apple Pay, Google Pay, or Bank Transfer. Cancel anytime.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEYWORDS (100 char max, comma-separated)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+fitness, workout, exercise, gym, weight loss, nutrition, calories, personal trainer, smart coach, body tracking, meal planner, cardio, strength training, home workout, progress, health, muscle, diet, macro tracking, fitness tracker
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHAT'S NEW (Release Notes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Version 2.0.0
+
+NEW FEATURES:
+• Multiple sign-in options: Google, Facebook, Apple, X (Twitter), Email, Phone OTP
+• Phone number authentication with SMS verification (15+ countries)
+• Password strength indicator during registration
+• Remember Me feature for email login
+• Enhanced social sign-up and sign-in experience
+• Terms of Service and Privacy Policy pages
+
+IMPROVEMENTS:
+• Redesigned login and registration pages
+• Smoother animations and transitions
+• Better form validation
+• Enhanced error handling
+• Improved accessibility
+
+SUBSCRIPTION:
+• 3 subscription tiers: Free, Basic ($4.99/mo), Pro ($9.99/mo)
+• Monthly and yearly billing with 33% savings
+• 5 payment methods: Card, PayPal, Apple Pay, Google Pay, Bank Transfer
+• Free trials for Basic (7 days) and Pro (14 days)
+• Multi-currency support (USD, EUR, GBP, CAD, AUD, NGN)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Category: Health & Fitness
+Age Rating: 4+ (Contains no objectionable content)
+Languages: English
+Size: ~8 MB
+Compatibility: iPhone (iOS 15.0 or later), iPad, iPod touch
+Requires: iOS 15.0 or later / iPadOS 15.0 or later
+
+Seller: [Your Developer Name / Company Name]
+Copyright: © 2025 TrimFit. All rights reserved.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+APP STORE SCREENSHOT SPECIFICATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Required: 6.7" Display (1290 x 2796 px) — iPhone 15 Pro Max, 14 Pro Max
+Optional: 6.5" Display (1284 x 2778 px), 5.5" Display (1242 x 2208 px), iPad Pro 12.9" (2048 x 2732 px)
+
+Screenshot 1 (Primary): Welcome / Sign-in screen showing all 6 auth options
+Screenshot 2: Smart Dashboard with fitness overview
+Screenshot 3: Exercise Library browser with category filters
+Screenshot 4: Active Workout session with timer and exercise detail
+Screenshot 5: Nutrition Tracking with meal logging and macros
+Screenshot 6: Progress Analytics with charts and body measurement trends
+Screenshot 7: Subscription Plans comparison (Free vs Basic vs Pro)
+Screenshot 8: Achievements and workout streaks gallery
+Screenshot 9: Community challenges and social feed
+Screenshot 10: Payment checkout flow
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+APP STORE PROMOTIONAL TEXT (170 char max)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+New! Sign in with Google, Facebook, Apple, X, or Phone. 205+ exercises, smart coaching, nutrition tracking & detailed progress analytics. Free to start!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SUPPORT URL: [Add your support URL]
+PRIVACY POLICY URL: [Add your privacy policy URL]
+TERMS OF USE URL: [Add your terms URL]
+MARKETING URL: https://trimfit.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+APP STORE REVIEW GUIDELINES COMPLIANCE NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• App requires user account for core features (acceptable under Guideline 2.1.1)
+• Subscription auto-renewal clearly disclosed with price, trial length, and cancellation instructions
+• Sign in with Apple implemented (required when offering other social sign-in)
+• No hidden or misleading subscription terms
+• Privacy policy covers data collection, storage, and sharing practices
+• No API calls to external services without user consent
+• Content is suitable for all ages (4+ rating)
+• No gambling, violence, or adult content
+• Health & fitness content is informational and not a substitute for medical advice
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+LOCALIZATION NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary language: English (en-US)
+Recommended future localizations:
+• Spanish (es-ES, es-MX)
+• French (fr-FR)
+• German (de-DE)
+• Portuguese (pt-BR)
+• Chinese Simplified (zh-Hans)
+• Japanese (ja)
+• Arabic (ar)
+• Hindi (hi)
+
+All UI text should use localized strings. Currency formatting should adapt to locale.

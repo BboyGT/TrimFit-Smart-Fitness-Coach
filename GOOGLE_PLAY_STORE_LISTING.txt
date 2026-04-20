@@ -1,0 +1,184 @@
+GOOGLE PLAY STORE LISTING
+==========================
+
+App Name: TrimFit — Smart Fitness Coach
+Short Description: 205+ exercises, smart coaching, nutrition tracking & progress analytics. Your all-in-one fitness companion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FULL DESCRIPTION (4000 char max)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TrimFit is your all-in-one smart fitness coach — designed to help you lose weight, build muscle, stay fit, and track every step of your fitness journey. Whether you're a complete beginner or a seasoned athlete, TrimFit adapts to your goals and provides personalized workout plans, nutrition guidance, and detailed progress tracking.
+
+🎯 WHY TRIMFIT?
+
+• 205+ PROFESSIONAL EXERCISES — Browse our massive library of exercises across 7 categories: Abs, Back, Chest, Legs, Shoulders, Arms, and Cardio. Each exercise includes step-by-step instructions, target muscle details, difficulty levels, and video demonstrations.
+
+• SMART WORKOUT GENERATION — Tell TrimFit your goals, fitness level, and available equipment, and it generates a personalized workout plan just for you. No more guessing what to do at the gym.
+
+• PERSONALIZED NUTRITION TRACKING — Log your meals, track calories and macros, monitor water intake, and get smart meal plan recommendations tailored to your goals. Whether you want to lose weight, bulk up, or eat cleaner, TrimFit helps you stay on track.
+
+• DETAILED PROGRESS ANALYTICS — Track body measurements, log before & after photos, monitor workout streaks, and visualize your progress with beautiful charts and reports. Celebrate your achievements with our badge and milestone system.
+
+• WORKOUT STREAKS & ACHIEVEMENTS — Stay motivated with daily streak tracking, unlock achievement badges for hitting milestones, and compete in community fitness challenges.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💰 SUBSCRIPTION PLANS
+
+Start for FREE with basic features, or upgrade for the full experience:
+
+FREE PLAN:
+• 3 workout sessions per week
+• 5 preset workout plans
+• 50 basic exercises
+• Simple progress charts
+• Water intake tracking
+
+BASIC PLAN ($4.99/month or $39.99/year — save 33%):
+• Unlimited workout tracking
+• 20+ workout plans
+• Full 205+ exercise library
+• Smart workout recommendations
+• Body measurement tracking
+• Basic nutrition logging
+• Achievement badges & streaks
+• Weekly progress reports
+• 7-day free trial
+
+PRO PLAN ($9.99/month or $79.99/year — save 33%):
+• Everything in Basic, plus:
+• Smart personalized meal plans
+• Macro & calorie tracking
+• Advanced body composition analysis
+• Before & after photo comparison
+• Custom workout builder
+• Exercise video demonstrations
+• Monthly progress reports
+• Priority smart coaching
+• Export workout data (CSV/PDF)
+• 14-day free trial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 SECURE & EASY SIGN-UP
+
+Getting started takes less than 30 seconds. Sign up with:
+• Google account
+• Facebook account
+• Apple ID
+• X (Twitter) account
+• Email & password
+• Phone number (SMS verification)
+
+Your data is encrypted and never shared with third parties.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💳 FLEXIBLE PAYMENT OPTIONS
+
+Choose from 5 payment methods:
+• Credit/Debit Card (Visa, Mastercard, Amex, Discover)
+• PayPal
+• Apple Pay
+• Google Pay
+• Bank Transfer
+
+Supports USD, EUR, GBP, CAD, AUD, and NGN currencies. Cancel anytime directly from the app — no hidden fees, no hassle.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏆 KEY HIGHLIGHTS
+
+• Personalized fitness coaching powered by smart algorithms
+• 205+ exercises with video demonstrations
+• 20+ pre-built workout plans for every fitness level
+• Custom workout builder (Pro)
+• Nutrition logging with macro tracking
+• Body measurement & photo progress tracking
+• Achievement badges & workout streaks
+• Community challenges for extra motivation
+• Smart tips and coaching recommendations
+• Beautiful dark theme with smooth animations
+• Works offline — no internet needed for workouts
+• Multi-language support coming soon
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHO IS TRIMFIT FOR?
+
+• Beginners starting their fitness journey
+• Intermediate lifters looking to level up
+• Advanced athletes wanting detailed tracking
+• Anyone wanting to lose weight or build muscle
+• Busy people who need quick, effective workouts
+• Home workout enthusiasts (no gym required)
+• Gym-goers who want structured programming
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Download TrimFit today and take the first step toward a healthier, stronger you. Your smart fitness coach is ready!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+APP CATEGORY: Health & Fitness
+RATING: 4.5+ (target)
+SIZE: ~8 MB
+MINIMUM ANDROID VERSION: Android 8.0 (API Level 26)
+TARGET SDK: Android 14 (API Level 34)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEYWORDS (100 char max per field, up to 5 fields)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1: fitness, workout, exercise, gym, training
+2: weight loss, diet, nutrition, calories, macro
+3: smart coach, personal trainer, fitness tracker
+4: home workout, bodybuilding, cardio, strength
+5: progress tracking, meal planner, health app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FEATURE GRAPHIC TEXT (landscape banners)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Graphic 1: "Your Smart Fitness Coach — 205+ Exercises"
+Graphic 2: "Personalized Workouts for Every Goal"
+Graphic 3: "Track Nutrition, Measure Progress, Get Results"
+Graphic 4: "Free to Start — Upgrade Anytime"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SHORT DESCRIPTION (80 char max)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TrimFit: Smart fitness coach with 205+ exercises, nutrition tracking & progress analytics.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SCREENSHOT CAPTIONS (up to 8 screenshots)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1: "Welcome — Sign up in seconds with Google, Facebook, Apple, or email"
+2: "Smart Dashboard — Your fitness journey at a glance"
+3: "205+ Exercises — Browse by category, difficulty, or goal"
+4: "Personalized Workouts — AI-generated plans for you"
+5: "Nutrition Tracking — Log meals, track macros & calories"
+6: "Progress Analytics — Charts, photos, and body measurements"
+7: "Subscription Plans — Free, Basic ($4.99/mo), Pro ($9.99/mo)"
+8: "Achievements — Unlock badges and build workout streaks"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRIVACY POLICY URL: [Add your privacy policy URL]
+TERMS OF SERVICE URL: [Add your terms URL]
+SUPPORT EMAIL: support@trimfit.app
+WEBSITE: https://trimfit.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CONTENT RATING: Everyone
+ADS: None (subscription-based model)
+IN-APP PURCHASES: Yes (Basic $4.99/mo, Pro $9.99/mo, yearly options)
