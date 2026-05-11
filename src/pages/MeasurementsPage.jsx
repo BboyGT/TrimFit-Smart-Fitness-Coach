@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Plus, Ruler, ChevronRight, TrendingUp } from 'lucide-react'
+import { Plus, Ruler, ChevronRight } from 'lucide-react'
 import useTrimFitStore from '../store/useTrimFitStore'
 import useSubscription from '../hooks/useSubscription'
 import { formatDate } from '../utils/formatting'

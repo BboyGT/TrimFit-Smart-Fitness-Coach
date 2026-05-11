@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Play, Plus, Clock, Dumbbell, ChevronRight, Zap, Star } from 'lucide-react'
+import { Play, Clock, Dumbbell, ChevronRight, Zap, Star } from 'lucide-react'
 import { workoutPlans } from '../data/exercises'
 import { exercises } from '../data/exercises'
 import useTrimFitStore from '../store/useTrimFitStore'
@@ -11,7 +11,7 @@ const WorkoutPage = () => {
   const navigate = useNavigate()
   const { setCurrentWorkout, completeWorkout, user, workoutHistory } = useTrimFitStore()
   const { canAccess, currentPlan } = useSubscription()
-  const [activePlan, setActivePlan] = useState(0)
+  const [activePlan, setActivePlan] = useState('all')
 
   const handleStartWorkout = (plan) => {
     const planExercises = Array.isArray(plan.exercises)
@@ -32,6 +32,14 @@ const WorkoutPage = () => {
 
   const todayStr = new Date().toDateString()
   const todayWorkouts = workoutHistory.filter(w => new Date(w.completedAt).toDateString() === todayStr)
+
+  // Filter plans by selected tab or show all
+  const filteredPlans = activePlan === 'all'
+    ? workoutPlans
+    : workoutPlans.filter(plan => plan.difficulty === activePlan)
+
+  // Get unique difficulties for tabs
+  const difficulties = ['all', ...new Set(workoutPlans.map(p => p.difficulty))]
 
   return (
     <div className="min-h-screen pb-24">
@@ -70,23 +78,23 @@ const WorkoutPage = () => {
           <ChevronRight size={20} />
         </motion.button>
 
-        {/* Plan Tabs */}
+        {/* Plan Filter Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {workoutPlans.map((plan, i) => (
+          {difficulties.map((diff) => (
             <button
-              key={plan.id}
-              onClick={() => setActivePlan(i)}
+              key={diff}
+              onClick={() => setActivePlan(diff)}
               className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                activePlan === i ? 'bg-primary text-white' : 'bg-white/5 text-gray-400'
+                activePlan === diff ? 'bg-primary text-white' : 'bg-white/5 text-gray-400'
               }`}
             >
-              {plan.name}
+              {diff === 'all' ? 'All Plans' : diff.charAt(0).toUpperCase() + diff.slice(1)}
             </button>
           ))}
         </div>
 
         {/* Workout Plans */}
-        {workoutPlans.map((plan, index) => {
+        {filteredPlans.map((plan, index) => {
           const exCount = Array.isArray(plan.exercises)
             ? plan.exercises.length
             : Object.values(plan.exercises).flat().length

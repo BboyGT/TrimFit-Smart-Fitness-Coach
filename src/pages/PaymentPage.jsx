@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowLeft, CreditCard, Wallet, Smartphone, Globe, Building, Lock,
-  Shield, ChevronDown, Check, AlertCircle, Eye, EyeOff, Info,
-  Calendar, Receipt, Sparkles, ChevronRight, Loader2
+  Shield, ChevronDown, Check, AlertCircle, Eye, EyeOff,
+  Calendar, Sparkles, ChevronRight, Loader2
 } from 'lucide-react'
 import { subscriptionPlans, paymentMethods } from '../data/plans'
 import { formatCurrency } from '../utils/formatting'
@@ -15,7 +15,7 @@ const PaymentPage = () => {
   const { planId } = useParams()
   const [searchParams] = useSearchParams()
   const interval = searchParams.get('interval') || 'month'
-  const { subscription, setSubscriptionPlan, updatePaymentMethod, addBillingRecord } = useTrimFitStore()
+  const { subscription, setSubscriptionPlan, updatePaymentMethod, addBillingRecord, setAutoRenew } = useTrimFitStore()
 
   const [selectedMethod, setSelectedMethod] = useState('card')
   const [isProcessing, setIsProcessing] = useState(false)
@@ -34,6 +34,9 @@ const PaymentPage = () => {
   const [cardErrors, setCardErrors] = useState({})
   const [agreeTerms, setAgreeTerms] = useState(false)
   const [enableAutoRenew, setEnableAutoRenew] = useState(true)
+  const [couponCode, setCouponCode] = useState('')
+  const [couponError, setCouponError] = useState('')
+  const [couponDiscount, setCouponDiscount] = useState(0)
 
   // PayPal state
   const [paypalEmail, setPaypalEmail] = useState('')
@@ -64,6 +67,7 @@ const PaymentPage = () => {
   const monthlyPrice = isYearly && plan.yearlyPrice > 0 ? (plan.yearlyPrice / 12).toFixed(2) : plan.price
   const trialDays = plan.trialDays || 0
   const totalToday = trialDays > 0 ? 0 : price
+  const discountedTotal = couponDiscount > 0 ? Math.max(totalToday * (1 - couponDiscount / 100), 0) : totalToday
   const billingDate = trialDays > 0
     ? new Date(Date.now() + trialDays * 86400000)
     : new Date(Date.now() + (isYearly ? 365 : 30) * 86400000)
@@ -117,6 +121,9 @@ const PaymentPage = () => {
 
     setIsProcessing(true)
 
+    // Save auto-renew preference
+    setAutoRenew(enableAutoRenew)
+
     // Simulate payment processing (2 seconds)
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -139,7 +146,7 @@ const PaymentPage = () => {
     const billingRecord = {
       id: Date.now().toString(),
       date: new Date().toISOString(),
-      amount: totalToday,
+      amount: discountedTotal,
       currency: 'USD',
       status: 'succeeded',
       plan: plan.name,
@@ -157,7 +164,7 @@ const PaymentPage = () => {
       state: {
         plan,
         paymentMethod: paymentMethodInfo,
-        amount: totalToday,
+        amount: discountedTotal,
         billingDate,
         trialDays,
         interval,
@@ -166,16 +173,32 @@ const PaymentPage = () => {
     })
   }
 
+  const handleApplyCoupon = () => {
+    setCouponError('')
+    const code = couponCode.trim().toUpperCase()
+    if (!code) {
+      setCouponError('Please enter a coupon code')
+      return
+    }
+    const validCoupons = { 'FIT20': 20, 'TRIMFIT50': 50, 'WELCOME': 10 }
+    if (validCoupons[code]) {
+      setCouponDiscount(validCoupons[code])
+    } else {
+      setCouponError('Invalid coupon code')
+      setCouponDiscount(0)
+    }
+  }
+
   const canProceed = () => {
     if (!agreeTerms) return false
-    if (selectedMethod === 'card') return validateCardForm() === true || Object.keys(cardErrors).length === 0
+    if (selectedMethod === 'card') return validateCardForm() === true
     if (selectedMethod === 'paypal') return validatePaypal()
     if (selectedMethod === 'bank_transfer') return validateBank()
     if (selectedMethod === 'apple_pay' || selectedMethod === 'google_pay') return true
     return false
   }
 
-  const methodIcons = { CreditCard, Wallet, Smartphone, Chrome, Building }
+  const methodIcons = { CreditCard, Wallet, Smartphone, Globe, Building }
 
   return (
     <div className="min-h-screen pb-24">
@@ -634,7 +657,7 @@ const PaymentPage = () => {
                     onClick={() => setEnableAutoRenew(!enableAutoRenew)}
                     className={`relative w-12 h-6 rounded-full transition-colors ${enableAutoRenew ? 'bg-primary' : 'bg-white/10'}`}
                   >
-                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${enableAutoRenew ? 'translate-x-6' : 'translate-x-0.5'}`} />
+                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${enableAutoRenew ? 'translate-x-[24px]' : 'translate-x-0.5'}`} />
                   </button>
                 </div>
               </div>
@@ -645,13 +668,17 @@ const PaymentPage = () => {
                 <div className="flex gap-2">
                   <input
                     type="text"
+                    value={couponCode}
+                    onChange={(e) => { setCouponCode(e.target.value); setCouponError(''); setCouponDiscount(0) }}
                     placeholder="Enter coupon code"
-                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary"
+                    className={`flex-1 bg-white/5 border ${couponError ? 'border-red-500' : couponDiscount > 0 ? 'border-emerald-500/50' : 'border-white/10'} rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary`}
                   />
-                  <button className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm hover:bg-white/10 transition-colors">
+                  <button onClick={handleApplyCoupon} className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm hover:bg-white/10 transition-colors">
                     Apply
                   </button>
                 </div>
+                {couponError && <p className="text-xs text-red-400 mt-1">{couponError}</p>}
+                {couponDiscount > 0 && <p className="text-xs text-emerald-400 mt-1">{couponDiscount}% discount applied!</p>}
               </div>
 
               {/* Price Breakdown */}
@@ -670,11 +697,17 @@ const PaymentPage = () => {
                   <span className="text-gray-400">Tax</span>
                   <span className="text-gray-400">Calculated at checkout</span>
                 </div>
-                <div className="border-t border-white/5 pt-2 flex justify-between">
-                  <span className="font-bold">Total Due Today</span>
-                  <span className="font-bold text-lg">{formatCurrency(totalToday)}</span>
+              {couponDiscount > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Coupon discount ({couponDiscount}%)</span>
+                  <span className="text-emerald-400">-{formatCurrency(totalToday - discountedTotal)}</span>
                 </div>
-                {totalToday === 0 && (
+              )}
+              <div className="border-t border-white/5 pt-2 flex justify-between">
+                  <span className="font-bold">Total Due Today</span>
+                  <span className="font-bold text-lg">{formatCurrency(discountedTotal)}</span>
+                </div>
+                {discountedTotal === 0 && (
                   <p className="text-xs text-emerald-400 text-center">
                     You will not be charged during your free trial
                   </p>
@@ -716,7 +749,7 @@ const PaymentPage = () => {
                     <Loader2 size={20} className="animate-spin" />
                     Processing Payment...
                   </>
-                ) : totalToday === 0 ? (
+                ) : discountedTotal === 0 ? (
                   <>
                     <Sparkles size={20} />
                     Start Free Trial
@@ -724,7 +757,7 @@ const PaymentPage = () => {
                 ) : (
                   <>
                     <Lock size={18} />
-                    Pay {formatCurrency(totalToday)}
+                    Pay {formatCurrency(discountedTotal)}
                   </>
                 )}
               </button>

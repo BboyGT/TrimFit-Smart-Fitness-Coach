@@ -78,11 +78,15 @@ const RegisterPage = () => {
   const handleSocialRegister = async (provider) => {
     setSocialLoading(provider.id)
     setError('')
-    const result = await socialRegister(provider.id)
-    if (result.success) {
-      navigate('/onboarding')
-    } else {
-      setError(result.error || `${provider.name} sign-up failed. Please try again.`)
+    try {
+      const result = await socialRegister(provider.id)
+      if (result.success) {
+        navigate('/onboarding')
+      } else {
+        setError(result.error || `${provider.name} sign-up failed. Please try again.`)
+      }
+    } catch {
+      setError(`${provider.name} sign-up failed. Please try again.`)
     }
     setSocialLoading(null)
   }

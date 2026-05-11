@@ -1,16 +1,16 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Check, SkipForward, Timer, Dumbbell, ChevronLeft, ChevronRight } from 'lucide-react'
-import { exercises, categories } from '../data/exercises'
+import { ArrowLeft, Check, SkipForward, Timer, Dumbbell, ChevronLeft, ChevronRight, PictureInPicture2, PictureInPicture } from 'lucide-react'
+import { exercises } from '../data/exercises'
 import useTrimFitStore from '../store/useTrimFitStore'
+import PiPPlayer from '../components/PiPPlayer'
 
 const REST_TIME = 60 // seconds rest between sets
 const SETS_PER_EXERCISE = 3
 
 const WorkoutDetailPage = () => {
   const navigate = useNavigate()
-  const { id } = useParams()
   const { currentWorkout, setCurrentWorkout, completeWorkout } = useTrimFitStore()
   const [activeExercise, setActiveExercise] = useState(0)
   const [activeSet, setActiveSet] = useState(0)
@@ -18,22 +18,11 @@ const WorkoutDetailPage = () => {
   const [phase, setPhase] = useState('workout') // 'workout' | 'rest'
   const [restTimer, setRestTimer] = useState(REST_TIME)
   const [totalElapsed, setTotalElapsed] = useState(0)
+  const [showPiP, setShowPiP] = useState(true) // Auto-show PiP during workout
   const videoContainerRef = useRef(null)
   const timerRef = useRef(null)
 
-  if (!currentWorkout) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="text-center">
-          <Dumbbell size={48} className="text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-400 mb-3">No active workout</p>
-          <button onClick={() => navigate('/workout')} className="text-primary hover:underline text-sm">Back to workouts</button>
-        </div>
-      </div>
-    )
-  }
-
-  const workoutExercises = currentWorkout.exercises || []
+  const workoutExercises = currentWorkout?.exercises || []
   const currentEx = workoutExercises[activeExercise]
   const exerciseData = currentEx?.exercise || exercises.find(e => e.id === currentEx?.exerciseId)
   const totalSets = workoutExercises.length * SETS_PER_EXERCISE
@@ -56,12 +45,33 @@ const WorkoutDetailPage = () => {
     }
   }, [phase, restTimer])
 
+  // Auto-update PiP when exercise changes
+  useEffect(() => {
+    if (showPiP && exerciseData?.youtubeId) {
+      setShowPiP(false)
+      setTimeout(() => setShowPiP(true), 100)
+    }
+  }, [activeExercise])
+
   // Scroll video into view when exercise changes
   useEffect(() => {
     if (videoContainerRef.current) {
       videoContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [activeExercise])
+
+  // Early return AFTER all hooks (Rules of Hooks)
+  if (!currentWorkout) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="text-center">
+          <Dumbbell size={48} className="text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-400 mb-3">No active workout</p>
+          <button onClick={() => navigate('/workout')} className="text-primary hover:underline text-sm">Back to workouts</button>
+        </div>
+      </div>
+    )
+  }
 
   const handleCompleteSet = () => {
     const key = `${activeExercise}-${activeSet}`
@@ -105,11 +115,13 @@ const WorkoutDetailPage = () => {
   const handleFinishWorkout = () => {
     const completed = { ...currentWorkout, completed: true, totalDuration: totalElapsed }
     completeWorkout(completed)
+    setShowPiP(false)
     navigate('/workout')
   }
 
   const handleCancel = () => {
     setCurrentWorkout(null)
+    setShowPiP(false)
     navigate('/workout')
   }
 
@@ -171,6 +183,21 @@ const WorkoutDetailPage = () => {
                   />
                 </motion.div>
               </AnimatePresence>
+
+              {/* PiP Toggle Button */}
+              <div className="p-2 pt-1 flex gap-2">
+                <button
+                  onClick={() => setShowPiP(prev => !prev)}
+                  className={`flex-1 py-2 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                    showPiP
+                      ? 'bg-red-500/20 border border-red-500/30 text-red-300'
+                      : 'bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10'
+                  }`}
+                >
+                  {showPiP ? <PictureInPicture size={14} /> : <PictureInPicture2 size={14} />}
+                  {showPiP ? 'PiP Active — Tap to Close' : 'Follow Along in PiP'}
+                </button>
+              </div>
             </div>
           )}
 
@@ -319,6 +346,16 @@ const WorkoutDetailPage = () => {
           </div>
         </div>
       )}
+
+      {/* Floating PiP Player - auto shown during workout */}
+      <PiPPlayer
+        youtubeId={exerciseData?.youtubeId}
+        title={exerciseData?.name}
+        isOpen={showPiP && !!exerciseData?.youtubeId}
+        onClose={() => setShowPiP(false)}
+        size="sm"
+        autoPlay={true}
+      />
     </div>
   )
 }

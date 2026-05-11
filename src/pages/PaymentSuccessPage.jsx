@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { CheckCircle, ArrowRight, Download, Calendar, CreditCard, Sparkles, Crown, Home } from 'lucide-react'
-import { formatCurrency, formatDate } from '../utils/formatting'
+import { CheckCircle, Calendar, CreditCard, Sparkles, Crown, Home } from 'lucide-react'
+import { formatCurrency } from '../utils/formatting'
 import useTrimFitStore from '../store/useTrimFitStore'
 
 const PaymentSuccessPage = () => {

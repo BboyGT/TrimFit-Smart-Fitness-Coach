@@ -109,11 +109,26 @@ const PhoneAuthPage = () => {
       setStep('success')
       const fullPhone = `${countryCode.code}${phone.replace(/\D/g, '')}`
       if (mode === 'register') {
-        phoneRegister(fullPhone)
-        setTimeout(() => navigate('/onboarding'), 1500)
+        const result = phoneRegister(fullPhone)
+        if (result.success) {
+          setTimeout(() => navigate('/onboarding'), 1500)
+        } else {
+          setError(result.error || 'Registration failed')
+          setOtp(['', '', '', '', '', ''])
+          setStep('enter')
+        }
       } else {
-        phoneLogin(fullPhone)
-        setTimeout(() => navigate('/dashboard'), 1500)
+        const result = phoneLogin(fullPhone)
+        if (result.success) {
+          setTimeout(() => {
+            const { onboardingComplete } = useTrimFitStore.getState()
+            navigate(onboardingComplete ? '/dashboard' : '/onboarding')
+          }, 1500)
+        } else {
+          setError(result.error || 'Login failed')
+          setOtp(['', '', '', '', '', ''])
+          setStep('enter')
+        }
       }
     } else {
       setError('Invalid verification code. Please try again.')

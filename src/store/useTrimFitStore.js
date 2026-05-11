@@ -1,76 +1,79 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+const initialState = {
+  user: {
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    avatar: '',
+    age: null,
+    gender: '',
+    height: null,
+    weight: null,
+    goal: '',
+    activityLevel: 'moderate',
+    workoutDifficulty: 'intermediate',
+    createdAt: null,
+    authProvider: null,
+    socialAvatar: null,
+  },
+  subscription: {
+    plan: 'free',
+    status: 'active',
+    startDate: null,
+    endDate: null,
+    trialEndDate: null,
+    paymentMethod: null,
+    billingHistory: [],
+    nextBillingDate: null,
+    autoRenew: true,
+    stripeCustomerId: null,
+    stripeSubscriptionId: null,
+  },
+  onboardingComplete: false,
+  isLoggedIn: false,
+  measurements: [],
+  currentWorkout: null,
+  workoutHistory: [],
+  meals: [],
+  waterIntake: 0,
+  waterIntakeDate: null,
+  dailyCalorieGoal: 2000,
+  achievements: [],
+  streaks: {
+    current: 0,
+    longest: 0,
+    lastWorkoutDate: null,
+  },
+  progressPhotos: [],
+  // Challenges
+  joinedChallenges: [],
+  // Goals
+  goals: [],
+  // Community
+  likedPosts: [],
+  showTour: false,
+  tourStep: 0,
+  notifications: [],
+  // Persistent settings
+  settings: {
+    pushNotifications: true,
+    emailNotifications: true,
+    workoutReminders: true,
+    darkMode: true,
+    hapticFeedback: true,
+    soundEffects: false,
+    autoPlayVideos: true,
+    metricUnits: true,
+  },
+}
+
 const useTrimFitStore = create(
   persist(
     (set, get) => ({
-      // User
-      user: {
-        name: '',
-        email: '',
-        password: '',
-        phone: '',
-        avatar: '',
-        age: null,
-        gender: '',
-        height: null,
-        weight: null,
-        goal: '',
-        activityLevel: 'moderate',
-        workoutDifficulty: 'intermediate',
-        createdAt: null,
-        authProvider: null, // 'email', 'google', 'facebook', 'apple', 'x', 'phone'
-        socialAvatar: null,
-      },
-
-      // Subscription
-      subscription: {
-        plan: 'free',
-        status: 'active',
-        startDate: null,
-        endDate: null,
-        trialEndDate: null,
-        paymentMethod: null,
-        billingHistory: [],
-        nextBillingDate: null,
-        autoRenew: true,
-        stripeCustomerId: null,
-        stripeSubscriptionId: null,
-      },
-
-      // Onboarding
-      onboardingComplete: false,
-      isLoggedIn: false,
-
-      // Measurements
-      measurements: [],
-
-      // Workouts
-      currentWorkout: null,
-      workoutHistory: [],
-
-      // Nutrition
-      meals: [],
-      waterIntake: 0,
-      dailyCalorieGoal: 2000,
-
-      // Achievements
-      achievements: [],
-
-      // Streaks
-      streaks: {
-        current: 0,
-        longest: 0,
-        lastWorkoutDate: null,
-      },
-
-      // Before/After Photos
-      progressPhotos: [],
-
-      // UI
-      showTour: false,
-      tourStep: 0,
-      notifications: [],
+      ...initialState,
 
       // User actions
       setUser: (userData) => set((state) => ({
@@ -93,50 +96,48 @@ const useTrimFitStore = create(
 
       login: async (email, password) => {
         const state = get()
-        
+
         if (!email || !password) {
           return { success: false, error: 'Email and password are required' }
         }
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!emailRegex.test(email)) {
           return { success: false, error: 'Please enter a valid email address' }
         }
-        
+
         if (password.length < 6) {
           return { success: false, error: 'Password must be at least 6 characters' }
         }
-        
-        // Simulate API call delay
+
         await new Promise(resolve => setTimeout(resolve, 500))
-        
-        // Check stored credentials (in real app, this would be server-side)
+
         if (state.user.email === email && state.user.password === password) {
           set({ isLoggedIn: true, user: { ...state.user, authProvider: 'email' } })
           return { success: true }
         }
-        
+
         return { success: false, error: 'Invalid email or password' }
       },
 
       register: async (userData) => {
         const { email, password, name } = userData
-        
+
         if (!email || !password || !name) {
           return { success: false, error: 'All fields are required' }
         }
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!emailRegex.test(email)) {
           return { success: false, error: 'Please enter a valid email address' }
         }
-        
+
         if (password.length < 8) {
           return { success: false, error: 'Password must be at least 8 characters' }
         }
-        
+
         await new Promise(resolve => setTimeout(resolve, 500))
-        
+
         set({
           user: {
             ...userData,
@@ -148,7 +149,7 @@ const useTrimFitStore = create(
           onboardingComplete: false,
           isLoggedIn: true,
         })
-        
+
         return { success: true }
       },
 
@@ -259,7 +260,21 @@ const useTrimFitStore = create(
         return { success: true }
       },
 
-      logout: () => set({ isLoggedIn: false }),
+      // Logout - clears session but keeps user data for re-login
+      logout: () => set({
+        isLoggedIn: false,
+        currentWorkout: null,
+        showTour: false,
+        tourStep: 0,
+      }),
+
+      // Delete account - clears everything
+      deleteAccount: () => {
+        try {
+          localStorage.removeItem('trimfit-store')
+        } catch {}
+        set({ ...initialState })
+      },
 
       // Subscription actions
       setSubscriptionPlan: (planId, interval = 'month') => {
@@ -319,7 +334,7 @@ const useTrimFitStore = create(
       addBillingRecord: (record) => set((state) => ({
         subscription: {
           ...state.subscription,
-          billingHistory: [record, ...state.subscription.billingHistory],
+          billingHistory: [record, ...state.subscription.billingHistory].slice(0, 50),
         }
       })),
 
@@ -342,7 +357,7 @@ const useTrimFitStore = create(
         }
         set((state) => ({
           currentWorkout: null,
-          workoutHistory: [record, ...state.workoutHistory],
+          workoutHistory: [record, ...state.workoutHistory].slice(0, 500),
           streaks: {
             current: state.streaks.lastWorkoutDate
               ? (Date.now() - new Date(state.streaks.lastWorkoutDate).getTime()) < 86400000 * 2
@@ -367,7 +382,7 @@ const useTrimFitStore = create(
           ...measurement,
           id: Date.now().toString(),
           date: new Date().toISOString(),
-        }],
+        }].slice(0, 200),
       })),
 
       // Nutrition actions
@@ -376,18 +391,31 @@ const useTrimFitStore = create(
           ...meal,
           id: Date.now().toString(),
           date: new Date().toISOString(),
-        }],
+        }].slice(0, 500),
       })),
 
-      setWaterIntake: (amount) => set({ waterIntake: amount }),
+      setWaterIntake: (amount) => {
+        const today = new Date().toDateString()
+        const state = get()
+        // Reset water intake if it's a new day
+        if (state.waterIntakeDate !== today) {
+          set({ waterIntake: amount, waterIntakeDate: today })
+        } else {
+          set({ waterIntake: amount })
+        }
+      },
 
       // Achievement actions
-      unlockAchievement: (achievement) => set((state) => ({
-        achievements: [...state.achievements, {
-          ...achievement,
-          unlockedAt: new Date().toISOString(),
-        }],
-      })),
+      unlockAchievement: (achievement) => set((state) => {
+        const exists = state.achievements.some(a => a.id === achievement.id)
+        if (exists) return state
+        return {
+          achievements: [...state.achievements, {
+            ...achievement,
+            unlockedAt: new Date().toISOString(),
+          }],
+        }
+      }),
 
       // Photo actions
       addProgressPhoto: (photo) => set((state) => ({
@@ -398,9 +426,45 @@ const useTrimFitStore = create(
         }],
       })),
 
+      // Goal actions
+      addGoal: (goal) => set((state) => ({
+        goals: [...state.goals, { ...goal, id: Date.now().toString() }].slice(0, 20),
+      })),
+      updateGoal: (id, updates) => set((state) => ({
+        goals: state.goals.map(g => g.id === id ? { ...g, ...updates } : g),
+  })),
+      deleteGoal: (id) => set((state) => ({
+        goals: state.goals.filter(g => g.id !== id),
+      })),
+
+      // Challenge actions
+      toggleChallenge: (challengeId) => set((state) => {
+        const joined = state.joinedChallenges.includes(challengeId)
+        return {
+          joinedChallenges: joined
+            ? state.joinedChallenges.filter(id => id !== challengeId)
+            : [...state.joinedChallenges, challengeId],
+        }
+      }),
+
+      // Community actions
+      togglePostLike: (postId) => set((state) => {
+        const liked = state.likedPosts.includes(postId)
+        return {
+          likedPosts: liked
+            ? state.likedPosts.filter(id => id !== postId)
+            : [...state.likedPosts, postId],
+        }
+      }),
+
       // UI actions
       setShowTour: (show) => set({ showTour: show }),
       setTourStep: (step) => set({ tourStep: step }),
+
+      // Settings actions
+      updateSettings: (updates) => set((state) => ({
+        settings: { ...state.settings, ...updates }
+      })),
 
       addNotification: (notification) => set((state) => ({
         notifications: [{
@@ -421,6 +485,18 @@ const useTrimFitStore = create(
     }),
     {
       name: 'trimfit-store',
+      // Exclude password from persistence for security
+      partialize: (state) => {
+        const { password, ...safeUser } = state.user
+        return {
+          ...state,
+          user: safeUser,
+          // Don't persist transient UI state
+          currentWorkout: null,
+          showTour: false,
+          tourStep: 0,
+        }
+      },
     }
   )
 )

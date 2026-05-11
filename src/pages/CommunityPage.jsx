@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Users, MessageCircle, Heart, Share2, Send, MoreHorizontal } from 'lucide-react'
 import useSubscription from '../hooks/useSubscription'
 import { useNavigate } from 'react-router-dom'
-import { PageHeader, Button, Card, Avatar, Badge } from '../components/UI'
+import { PageHeader, Button, Avatar, Badge } from '../components/UI'
 import useTrimFitStore from '../store/useTrimFitStore'
 
 const mockPosts = [
@@ -16,29 +16,34 @@ const mockPosts = [
 const CommunityPage = () => {
   const navigate = useNavigate()
   const { canAccess } = useSubscription()
-  const { user } = useTrimFitStore()
+  const { user, likedPosts, togglePostLike } = useTrimFitStore()
   const [posts, setPosts] = useState(mockPosts)
-  const [likedPosts, setLikedPosts] = useState(new Set())
   const [commentText, setCommentText] = useState({})
 
   const handleLike = (postId) => {
-    setLikedPosts(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(postId)) {
-        newSet.delete(postId)
-        setPosts(posts.map(p => p.id === postId ? { ...p, likes: p.likes - 1 } : p))
-      } else {
-        newSet.add(postId)
-        setPosts(posts.map(p => p.id === postId ? { ...p, likes: p.likes + 1 } : p))
-      }
-      return newSet
-    })
+    const wasLiked = likedPosts.includes(postId)
+    togglePostLike(postId)
+    setPosts(prevPosts => prevPosts.map(p => p.id === postId
+      ? { ...p, likes: wasLiked ? p.likes - 1 : p.likes + 1 }
+      : p
+    ))
+  }
+
+  const handleShare = (post) => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'TrimFit Community Post',
+        text: `${post.author}: ${post.content.slice(0, 100)}...`,
+      }).catch(() => {})
+    } else {
+      alert('Link copied to clipboard!')
+    }
   }
 
   const handleComment = (postId) => {
     if (!commentText[postId]?.trim()) return
-    setPosts(posts.map(p => p.id === postId ? { ...p, comments: p.comments + 1 } : p))
-    setCommentText({ ...commentText, [postId]: '' })
+    setPosts(prevPosts => prevPosts.map(p => p.id === postId ? { ...p, comments: p.comments + 1 } : p))
+    setCommentText(prev => ({ ...prev, [postId]: '' }))
   }
 
   return (
@@ -102,16 +107,16 @@ const CommunityPage = () => {
               <div className="flex items-center gap-4 pt-3 border-t border-white/5">
                 <button 
                   onClick={() => handleLike(p.id)}
-                  className={`flex items-center gap-1.5 text-xs transition-colors ${likedPosts.has(p.id) ? 'text-red-400' : 'text-gray-500 hover:text-red-400'}`}
+                  className={`flex items-center gap-1.5 text-xs transition-colors ${likedPosts.includes(p.id) ? 'text-red-400' : 'text-gray-500 hover:text-red-400'}`}
                 >
-                  <Heart size={16} fill={likedPosts.has(p.id) ? 'currentColor' : 'none'} />
+                  <Heart size={16} fill={likedPosts.includes(p.id) ? 'currentColor' : 'none'} />
                   {p.likes}
                 </button>
                 <button className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-400 transition-colors">
                   <MessageCircle size={16} />
                   {p.comments}
                 </button>
-                <button className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary transition-colors ml-auto">
+                <button onClick={() => handleShare(p)} className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary transition-colors ml-auto">
                   <Share2 size={16} />
                   Share
                 </button>

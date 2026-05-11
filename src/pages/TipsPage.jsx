@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { Lightbulb, Dumbbell, UtensilsCrossed, Moon, Heart, TrendingUp, Activity } from 'lucide-react'
-import { PageHeader, Card, Badge } from '../components/UI'
+import { Dumbbell, UtensilsCrossed, Moon, Heart, TrendingUp, Activity, ArrowLeft } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Badge } from '../components/UI'
 
 const tips = [
   { icon: Dumbbell, title: 'Progressive Overload', content: 'Gradually increase weight, reps, or sets to keep challenging your muscles. This is the key principle for building strength and muscle.', category: 'Training', color: 'emerald' },
@@ -21,12 +22,20 @@ const colorMap = {
 }
 
 const TipsPage = () => {
+  const navigate = useNavigate()
   return (
     <div className="min-h-screen pb-24">
-      <PageHeader 
-        title="Smart Tips" 
-        subtitle="Expert advice for better results"
-      />
+      <div className="sticky top-0 z-10 glass px-4 py-4">
+        <div className="flex items-center gap-3">
+          <button onClick={() => navigate(-1)} className="p-2 rounded-xl bg-white/5 hover:bg-white/10">
+            <ArrowLeft size={20} />
+          </button>
+          <div>
+            <h1 className="text-xl font-bold">Smart Tips</h1>
+            <p className="text-sm text-gray-400">Expert advice for better results</p>
+          </div>
+        </div>
+      </div>
       <div className="px-4 mt-4 space-y-3">
         {tips.map((t, i) => {
           const colors = colorMap[t.color]

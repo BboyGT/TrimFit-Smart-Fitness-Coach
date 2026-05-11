@@ -90,7 +90,7 @@ const SubscriptionPage = () => {
           >
             <div
               className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-all duration-300 ${
-                isYearly ? 'translate-x-7.5' : 'translate-x-0.5'
+                isYearly ? 'translate-x-[30px]' : 'translate-x-0.5'
               }`}
             />
           </button>

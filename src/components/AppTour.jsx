@@ -43,16 +43,16 @@ const tourSteps = [
 ]
 
 const AppTour = () => {
-  const { showTour, tourStep, setShowTour, setTourStep } = useTrimFitStore()
+  const { showTour, tourStep, setShowTour, setTourStep, isLoggedIn, onboardingComplete } = useTrimFitStore()
   const [direction, setDirection] = useState(1)
 
   useEffect(() => {
     const seen = localStorage.getItem('trimfit-tour-seen')
-    if (!seen && !showTour) {
+    if (!seen && !showTour && isLoggedIn && onboardingComplete) {
       const timer = setTimeout(() => setShowTour(true), 1500)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [isLoggedIn, onboardingComplete])
 
   const handleNext = () => {
     if (tourStep < tourSteps.length - 1) {

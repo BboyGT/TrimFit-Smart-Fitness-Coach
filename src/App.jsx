@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import BottomNav from './components/BottomNav.jsx'
 import AppTour from './components/AppTour.jsx'
@@ -61,11 +61,12 @@ function AuthRoute({ children }) {
 }
 
 function AppContent() {
+  const location = useLocation()
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#1a1a2e] text-white">
         <Suspense fallback={<LoadingSpinner />}>
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" key={location.pathname}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />

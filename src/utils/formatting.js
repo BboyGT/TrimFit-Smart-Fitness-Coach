@@ -122,7 +122,7 @@ export const getMuscleColorByMuscle = (muscle) => {
   return map[muscle] || '#6b7280'
 }
 
-export const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2)
+export const generateId = () => Date.now().toString(36) + Math.random().toString(36).substring(2)
 
 export const daysRemaining = (endDate) => {
   if (!endDate) return null

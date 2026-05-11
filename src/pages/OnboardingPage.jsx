@@ -20,9 +20,9 @@ const activityLevels = [
 ]
 
 const difficultyLevels = [
-  { id: 'beginner', label: 'Beginner', color: 'emerald' },
-  { id: 'intermediate', label: 'Intermediate', color: 'blue' },
-  { id: 'advanced', label: 'Advanced', color: 'purple' },
+  { id: 'beginner', label: 'Beginner', color: 'emerald', activeBorder: 'border-emerald-500', activeBg: 'bg-emerald-500/10' },
+  { id: 'intermediate', label: 'Intermediate', color: 'blue', activeBorder: 'border-blue-500', activeBg: 'bg-blue-500/10' },
+  { id: 'advanced', label: 'Advanced', color: 'purple', activeBorder: 'border-purple-500', activeBg: 'bg-purple-500/10' },
 ]
 
 const OnboardingPage = () => {
@@ -204,7 +204,7 @@ const OnboardingPage = () => {
                       onClick={() => setData({...data, workoutDifficulty: level.id})}
                       className={`flex-1 py-3 rounded-xl border text-center transition-all ${
                         data.workoutDifficulty === level.id
-                          ? `border-${level.color}-500 bg-${level.color}-500/10`
+                          ? `${level.activeBorder} ${level.activeBg}`
                           : 'border-white/10 bg-white/[0.02] hover:border-white/20'
                       }`}
                     >

@@ -19,19 +19,30 @@ const useSubscription = () => {
   const isProOrHigher = planLevel >= 2
 
   const canAccess = (feature) => {
-    const allowedPlans = planFeatureGating.free
-    for (let i = planLevel; i >= 0; i--) {
-      const planId = Object.keys(planLevels).find((k) => planLevels[k] === i)
-      const features = planFeatureGating[planId]
-      if (features && features.includes(feature)) return true
-    }
+    const features = planFeatureGating[subscription.plan]
+    if (features && features.includes(feature)) return true
     return false
+  }
+
+  const requiresUpgrade = (feature) => {
+    if (canAccess(feature)) return false
+    if (planFeatureGating.pro?.includes(feature)) return 'pro'
+    if (planFeatureGating.basic?.includes(feature)) return 'basic'
+    return 'pro'
   }
 
   const getUpsellPlan = () => {
     if (planLevel === 0) return subscriptionPlans[1]
     if (planLevel === 1) return subscriptionPlans[2]
     return null
+  }
+
+  const daysRemaining = () => {
+    if (!subscription.endDate) return null
+    const end = new Date(subscription.endDate)
+    const now = new Date()
+    const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24))
+    return diff > 0 ? diff : 0
   }
 
   return {
@@ -42,7 +53,9 @@ const useSubscription = () => {
     isPremium,
     isProOrHigher,
     canAccess,
+    requiresUpgrade,
     getUpsellPlan,
+    daysRemaining,
     cancelSubscription,
     reactivateSubscription,
     updatePaymentMethod,

@@ -19,6 +19,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [socialLoading, setSocialLoading] = useState(null)
@@ -30,11 +31,15 @@ const LoginPage = () => {
       return
     }
     setLoading(true)
-    const result = await login(email, password)
-    if (result.success) {
-      navigate('/dashboard')
-    } else {
-      setError(result.error || 'Login failed. Please try again.')
+    try {
+      const result = await login(email, password)
+      if (result.success) {
+        navigate('/dashboard')
+      } else {
+        setError(result.error || 'Login failed. Please try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
     }
     setLoading(false)
   }
@@ -42,11 +47,15 @@ const LoginPage = () => {
   const handleSocialLogin = async (provider) => {
     setSocialLoading(provider.id)
     setError('')
-    const result = await socialLogin(provider.id)
-    if (result.success) {
-      navigate(result.needsOnboarding ? '/onboarding' : '/dashboard')
-    } else {
-      setError(result.error || `${provider.name} sign-in failed. Please try again.`)
+    try {
+      const result = await socialLogin(provider.id)
+      if (result.success) {
+        navigate(result.needsOnboarding ? '/onboarding' : '/dashboard')
+      } else {
+        setError(result.error || `${provider.name} sign-in failed. Please try again.`)
+      }
+    } catch {
+      setError(`${provider.name} sign-in failed. Please try again.`)
     }
     setSocialLoading(null)
   }
@@ -122,7 +131,7 @@ const LoginPage = () => {
           </div>
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 rounded border-white/20 bg-white/5 accent-primary" />
+              <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="w-4 h-4 rounded border-white/20 bg-white/5 accent-primary" />
               <span className="text-xs text-gray-400">Remember me</span>
             </label>
             <button onClick={() => navigate('/forgot-password')} className="text-xs text-primary hover:underline font-medium">

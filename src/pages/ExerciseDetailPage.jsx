@@ -1,13 +1,16 @@
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Play, Clock, Dumbbell, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Play, Clock, Dumbbell, ChevronRight, PictureInPicture2, ExternalLink } from 'lucide-react'
 import { exercises, categories } from '../data/exercises'
 import { getDifficultyColor, getMuscleColorByMuscle } from '../utils/formatting'
+import PiPPlayer from '../components/PiPPlayer'
 
 const ExerciseDetailPage = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const exercise = exercises.find((e) => e.id === parseInt(id))
+  const [showPiP, setShowPiP] = useState(false)
 
   if (!exercise) {
     return (
@@ -22,6 +25,34 @@ const ExerciseDetailPage = () => {
   }
 
   const category = categories.find(c => c.id === exercise.category)
+
+  const handleOpenYouTubePiP = () => {
+    // Try browser native PiP via documentPictureInPicture API
+    if ('documentPictureInPicture' in window) {
+      const pipWindow = documentPictureInPicture.requestWindow({
+        width: 400,
+        height: 225,
+      })
+      pipWindow.then((win) => {
+        const container = win.document.body
+        container.style.margin = '0'
+        container.style.background = '#000'
+        container.style.overflow = 'hidden'
+        const iframe = win.document.createElement('iframe')
+        iframe.src = `https://www.youtube-nocookie.com/embed/${exercise.youtubeId}?autoplay=1&mute=0&loop=1&playlist=${exercise.youtubeId}&rel=0&modestbranding=1&playsinline=1&controls=1`
+        iframe.style.width = '100%'
+        iframe.style.height = '100%'
+        iframe.style.border = 'none'
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+        iframe.allowFullscreen = true
+        container.appendChild(iframe)
+      }).catch(() => {
+        setShowPiP(true)
+      })
+    } else {
+      setShowPiP(true)
+    }
+  }
 
   return (
     <div className="min-h-screen pb-24">
@@ -52,6 +83,24 @@ const ExerciseDetailPage = () => {
                 loading="lazy"
                 frameBorder="0"
               />
+            </div>
+
+            {/* Follow Along PiP Button */}
+            <div className="flex gap-2 p-3 pt-2">
+              <button
+                onClick={handleOpenYouTubePiP}
+                className="flex-1 py-2.5 bg-gradient-to-r from-red-500/20 to-red-600/20 border border-red-500/30 rounded-xl text-sm font-medium flex items-center justify-center gap-2 hover:from-red-500/30 hover:to-red-600/30 transition-all active:scale-[0.98]"
+              >
+                <PictureInPicture2 size={16} className="text-red-400" />
+                <span className="text-red-300">Follow Along (PiP)</span>
+              </button>
+              <button
+                onClick={() => window.open(`https://www.youtube.com/watch?v=${exercise.youtubeId}`, '_blank')}
+                className="py-2.5 px-4 bg-white/5 border border-white/10 rounded-xl text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
+                title="Open on YouTube"
+              >
+                <ExternalLink size={14} className="text-gray-400" />
+              </button>
             </div>
           </motion.div>
         )}
@@ -99,7 +148,7 @@ const ExerciseDetailPage = () => {
             <div className="space-y-2">
               {exercise.tips.map((tip, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <span className="text-amber-400 shrink-0">💡</span>
+                  <span className="text-amber-400 shrink-0">&#x1F4A1;</span>
                   <p className="text-sm text-gray-300">{tip}</p>
                 </div>
               ))}
@@ -110,12 +159,22 @@ const ExerciseDetailPage = () => {
         {/* Calories */}
         <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-orange-400">🔥</span>
+            <span className="text-orange-400">&#x1F525;</span>
             <span className="text-sm text-gray-400">Estimated Burn</span>
           </div>
           <span className="font-bold">{exercise.caloriesPerMin} cal/min</span>
         </div>
       </div>
+
+      {/* Floating PiP Player */}
+      <PiPPlayer
+        youtubeId={exercise.youtubeId}
+        title={exercise.name}
+        isOpen={showPiP}
+        onClose={() => setShowPiP(false)}
+        size="md"
+        autoPlay={true}
+      />
     </div>
   )
 }
